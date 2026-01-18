@@ -1784,7 +1784,16 @@ function MessageBubble({ message, session, showTime, myAvatarUrl, isGroupChat, o
         throw error
       }
 
-      const result = await window.electronAPI.chat.getVoiceTranscript(session.username, String(message.localId))
+      const result = await window.electronAPI.chat.getVoiceTranscript(
+        session.username,
+        String(message.localId),
+        message.createTime
+      )
+      console.log('[ChatPage] 调用转写:', {
+        sessionId: session.username,
+        msgId: message.localId,
+        createTime: message.createTime
+      })
       if (result.success) {
         const transcriptText = (result.transcript || '').trim()
         voiceTranscriptCache.set(voiceTranscriptCacheKey, transcriptText)

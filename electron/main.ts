@@ -446,8 +446,8 @@ function registerIpcHandlers() {
     return chatService.resolveVoiceCache(sessionId, msgId)
   })
 
-  ipcMain.handle('chat:getVoiceTranscript', async (event, sessionId: string, msgId: string) => {
-    return chatService.getVoiceTranscript(sessionId, msgId, (text) => {
+  ipcMain.handle('chat:getVoiceTranscript', async (event, sessionId: string, msgId: string, createTime?: number) => {
+    return chatService.getVoiceTranscript(sessionId, msgId, createTime, (text) => {
       event.sender.send('chat:voiceTranscriptPartial', { msgId, text })
     })
   })
